@@ -2,29 +2,26 @@ version: '3.8'
 
 services:
   findmypark-api:
-    image: findmypark-api
     build:
       context: ./FindMyPark.API
       dockerfile: Dockerfile
+    container_name: findmypark-api
     ports:
-      - "5037:8080"
+      - "5175:8080"
     environment:
-      - ConnectionStrings__DefaultConnection=Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=host.docker.internal)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREE)));User Id=system;Password=oracle;
-    networks:
-      - findmypark-network
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_HTTP_PORTS=8080
+    volumes:
+      - ./data:/app/data # Persist SQLite DB
+    restart: always
 
   findmypark-ui:
-    image: findmypark-ui
     build:
       context: ./FindMyPark.UI
       dockerfile: Dockerfile
+    container_name: findmypark-ui
     ports:
       - "4200:80"
     depends_on:
       - findmypark-api
-    networks:
-      - findmypark-network
-
-networks:
-  findmypark-network:
-    driver: bridge
+    restart: always
