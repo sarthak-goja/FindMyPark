@@ -1,0 +1,22 @@
+<div class="kyc-container">
+    <h2>🔐 Identity Verification (KYC)</h2>
+    <p>To list your spot, we need to verify your identity.</p>
+
+    <div class="status-card" [class.pending]="status === 'Pending'" [class.verified]="status === 'Verified'">
+        <h3>Status: {{ status }}</h3>
+        <p *ngIf="status === 'None'">Please upload all required documents.</p>
+        <p *ngIf="status === 'Pending'">Your documents are under review.</p>
+        <p *ngIf="status === 'Verified'">You are a verified Host! ✅</p>
+    </div>
+
+    <div class="doc-list" *ngIf="status !== 'Verified'">
+        <div class="doc-card" *ngFor="let doc of documents">
+            <div class="doc-info">
+                <h4>{{ doc.type }}</h4>
+                <span *ngIf="doc.uploaded" class="badge-check">Uploaded ✅</span>
+            </div>
+
+            <input type="file" (change)="onFileSelected($event, doc.type)" accept="image/*" [disabled]="doc.uploaded">
+        </div>
+    </div>
+</div>

@@ -1,0 +1,40 @@
+.sidebar {
+    padding: var(--spacing-lg) 0;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-item a {
+    display: block;
+    padding: var(--spacing-md) var(--spacing-lg);
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+}
+
+.nav-item a:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--color-text-main);
+}
+
+.nav-item.active a {
+    color: var(--color-primary);
+    border-left-color: var(--color-primary);
+    background-color: rgba(46, 204, 113, 0.1);
+}
+
+.nav-title {
+    padding: var(--spacing-lg) var(--spacing-lg) var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.6;
+}

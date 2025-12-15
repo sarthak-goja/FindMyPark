@@ -1,0 +1,26 @@
+.search-container {
+    display: flex;
+    height: calc(100vh - 64px);
+    /* Subtract Navbar height */
+}
+
+.filters-panel {
+    width: 300px;
+    background: var(--color-bg-card);
+    padding: var(--spacing-md);
+    border-right: 1px solid var(--color-border);
+    overflow-y: auto;
+}
+
+.map-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+#map {
+    height: 100%;
+    min-height: 500px;
+    /* Fallback */
+    width: 100%;
+    z-index: 1;
+}

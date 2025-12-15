@@ -1,0 +1,23 @@
+<div class="chat-fab" (click)="toggleChat()">
+    💬
+</div>
+
+<div class="chat-window" *ngIf="isOpen">
+    <div class="chat-header">
+        <h4>FindMyPark Help</h4>
+        <span class="close-btn" (click)="toggleChat()">×</span>
+    </div>
+    <div class="chat-body">
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search for help..." class="search-box">
+
+        <div class="faq-list">
+            <div *ngFor="let faq of filteredFaqs" class="faq-item" (click)="selectFaq(faq)">
+                ❓ {{ faq.question }}
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="/support/create" class="create-ticket-link">Create Ticket</a>
+        </div>
+    </div>
+</div>

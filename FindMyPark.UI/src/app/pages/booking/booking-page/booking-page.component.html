@@ -1,0 +1,94 @@
+<div class="page-container">
+    <div class="card booking-card">
+        <h2>Complete your Reservation</h2>
+        <div class="spot-summary">
+            <h3>{{ listingTitle }}</h3>
+            <p class="price-tag">₹{{ pricePerHour }}/hr</p>
+        </div>
+
+        <div class="ev-section" *ngIf="chargers.length > 0">
+            <h4>⚡ EV Charging Station</h4>
+            <div class="charger-grid">
+                <div *ngFor="let c of chargers" class="charger-item" [class.available]="c.status === 'AVAILABLE'">
+                    <span class="plug-icon">🔌</span>
+                    <div class="charger-info">
+                        <span class="type">{{ c.type }}</span>
+                        <span class="power">{{ c.power }}</span>
+                    </div>
+                    <span class="status">{{ c.status }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ai-forecast" *ngIf="forecast.length > 0">
+            <h4>🤖 AI Occupancy Forest</h4>
+            <div class="forecast-bar">
+                <div *ngFor="let item of forecast" class="bar" [style.height.%]="item.occupancyPercentage"
+                    [class.high]="item.level === 'High'" [class.medium]="item.level === 'Medium'"
+                    title="{{item.hour}}:00 - {{item.occupancyPercentage}}%">
+                </div>
+            </div>
+            <div class="time-labels">
+                <span>00:00</span>
+                <span>12:00</span>
+                <span>23:00</span>
+            </div>
+        </div>
+
+        <form (ngSubmit)="confirmBooking()">
+            <div class="form-group">
+                <label>Check-in Time</label>
+                <input type="datetime-local" [(ngModel)]="startTime" (change)="calculatePrice()" name="start"
+                    required />
+            </div>
+
+            <div class="form-group">
+                <label>Check-out Time</label>
+                <input type="datetime-local" [(ngModel)]="endTime" (change)="calculatePrice()" name="end" required />
+            </div>
+
+            <div class="billing-summary" *ngIf="totalPrice > 0">
+                <div class="services-section" *ngIf="services.length > 0">
+                    <h4>✨ Add Extra Services</h4>
+                    <div class="services-list">
+                        <div *ngFor="let s of services" class="service-item"
+                            [class.selected]="selectedServices.includes(s)" (click)="toggleService(s)">
+                            <span class="icon">{{ s.icon }}</span>
+                            <div class="details">
+                                <span class="name">{{ s.name }}</span>
+                                <span class="desc">{{ s.description }}</span>
+                            </div>
+                            <span class="price">+₹{{ s.price }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="billing-row">
+                    <span>Total Duration</span>
+                    <span>{{ (totalPrice / pricePerHour).toFixed(1) }} hrs</span>
+                </div>
+                <div *ngIf="isSurge" class="surge-badge">⚡ Peak Hour Surge Applied (1.5x)</div>
+
+                <div class="promo-section">
+                    <input type="text" [(ngModel)]="promoCode" name="promo" placeholder="Enter Promo Code"
+                        [disabled]="appliedPromo">
+                    <button type="button" (click)="applyPromo()" [disabled]="!promoCode || appliedPromo">Apply</button>
+                </div>
+
+                <div class="billing-row" *ngIf="discount > 0">
+                    <span class="text-success">Discount ({{ appliedPromo.code }})</span>
+                    <span class="text-success">-₹{{ discount.toFixed(2) }}</span>
+                </div>
+
+                <div class="billing-row total">
+                    <span>Total Amount</span>
+                    <span>₹{{ (totalPrice - discount + servicesTotal).toFixed(2) }}</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary full-width" [disabled]="totalPrice <= 0">
+                Pay & Reserve
+            </button>
+        </form>
+    </div>
+</div>

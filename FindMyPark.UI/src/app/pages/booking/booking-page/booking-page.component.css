@@ -1,0 +1,213 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.booking-card {
+    width: 100%;
+    max-width: 500px;
+}
+
+.spot-summary {
+    background: var(--color-bg-dark);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    margin-bottom: var(--spacing-lg);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.spot-summary h3 {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.price-tag {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.form-group input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-main);
+    box-sizing: border-box;
+}
+
+.billing-summary {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid var(--color-primary);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-lg);
+}
+
+.billing-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-xs);
+}
+
+.billing-row.total {
+    margin-top: var(--spacing-sm);
+    padding-top: var(--spacing-sm);
+    border-top: 1px solid var(--color-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.full-width {
+    width: 100%;
+}
+
+/* Services Add-on Styles */
+.services-section {
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.services-section h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #ffd700;
+}
+
+.services-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.service-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: #333;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.service-item:hover {
+    background: #444;
+}
+
+.service-item.selected {
+    border-color: #2ecc71;
+    background: rgba(46, 204, 113, 0.1);
+}
+
+.service-item .icon {
+    font-size: 1.5rem;
+    margin-right: 15px;
+}
+
+.service-item .details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-item .name {
+    font-weight: bold;
+    color: white;
+}
+
+.service-item .desc {
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+.service-item .price {
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+/* EV Charging Grid Styles */
+.ev-section {
+    margin: 15px 0;
+    padding: 10px;
+    border: 1px solid #1abc9c;
+    border-radius: 6px;
+    background: rgba(26, 188, 156, 0.1);
+}
+
+.ev-section h4 {
+    margin: 0 0 10px 0;
+    color: #1abc9c;
+    font-size: 0.9rem;
+}
+
+.charger-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+.charger-item {
+    display: flex;
+    align-items: center;
+    background: #2c3e50;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #34495e;
+}
+
+.charger-item.available {
+    border-color: #2ecc71;
+}
+
+.charger-item .plug-icon {
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+.charger-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.charger-info .type {
+    font-weight: bold;
+    font-size: 0.8rem;
+    color: white;
+}
+
+.charger-info .power {
+    font-size: 0.75rem;
+    color: #bdc3c7;
+}
+
+.charger-item .status {
+    font-size: 0.7rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: #e74c3c;
+    color: white;
+}
+
+.charger-item.available .status {
+    background: #2ecc71;
+}

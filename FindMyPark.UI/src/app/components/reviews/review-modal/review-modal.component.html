@@ -1,0 +1,18 @@
+<div class="modal-overlay">
+    <div class="modal-content">
+        <h3>Rate Your Experience</h3>
+
+        <div class="stars">
+            <span *ngFor="let star of [1,2,3,4,5]" (click)="rating = star" [class.filled]="star <= rating">★</span>
+        </div>
+
+        <textarea [(ngModel)]="comment" placeholder="Write a review..."></textarea>
+
+        <div class="actions">
+            <button class="btn-cancel" (click)="close.emit()">Cancel</button>
+            <button class="btn-submit" (click)="submitReview()" [disabled]="isSubmitting">
+                {{ isSubmitting ? 'Submitting...' : 'Submit Review' }}
+            </button>
+        </div>
+    </div>
+</div>

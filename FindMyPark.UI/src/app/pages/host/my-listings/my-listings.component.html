@@ -1,0 +1,30 @@
+<div class="page-header">
+    <h2>My Parking Spots</h2>
+    <a routerLink="/add-listing" class="btn-primary">➕ Add New Spot</a>
+</div>
+
+<div class="listings-grid" *ngIf="!isLoading">
+    <div class="card listing-card" *ngFor="let item of listings">
+        <div class="listing-header">
+            <h3>{{ item.title }}</h3>
+            <span class="price">₹{{ item.pricePerHour }}/hr</span>
+        </div>
+        <p class="address">{{ item.address }}</p>
+        <div class="amenities">
+            <span *ngIf="item.isCovered">🏠 Covered</span>
+            <span *ngIf="item.hasCCTV">📹 CCTV</span>
+            <span *ngIf="item.hasEVCharger">⚡ EV</span>
+        </div>
+        <div class="actions">
+            <button class="btn-secondary">Manage</button>
+        </div>
+    </div>
+</div>
+
+<div class="loading-state" *ngIf="isLoading">
+    <p>Loading your spots...</p>
+</div>
+
+<div class="empty-state" *ngIf="!isLoading && listings.length === 0">
+    <p>You haven't listed any spots yet.</p>
+</div>

@@ -1,0 +1,49 @@
+<div class="page-container">
+    <h2>🛠️ Developer Console (God Mode)</h2>
+
+    <div *ngIf="health" class="card health-card">
+        <h3>System Health</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <label>Database</label>
+                <div class="value" [class.online]="health.database === 'Online'">{{ health.database }}</div>
+            </div>
+            <div class="stat-item">
+                <label>Active Users</label>
+                <div class="value">{{ health.activeUsers }}</div>
+            </div>
+            <div class="stat-item">
+                <label>Active Bookings</label>
+                <div class="value">{{ health.activeBookings }}</div>
+            </div>
+            <div class="stat-item">
+                <label>Version</label>
+                <div class="value">{{ health.version }}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card flags-card">
+        <h3>Feature Flags</h3>
+        <div class="flags-list">
+            <div *ngFor="let flag of flags" class="flag-item">
+                <span>{{ flag.key }}</span>
+                <label class="switch">
+                    <input type="checkbox" [checked]="flag.enabled" (change)="toggle(flag.key, flag.enabled)">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="card config-card">
+        <h3>⚙️ Global Configuration</h3>
+        <div class="config-grid">
+            <div *ngFor="let key of objectKeys(systemConfig)" class="config-item">
+                <label>{{ key }}</label>
+                <input type="text" [(ngModel)]="systemConfig[key]">
+            </div>
+        </div>
+        <button class="btn-save" (click)="saveConfig()">Save Settings</button>
+    </div>
+</div>

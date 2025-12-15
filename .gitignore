@@ -1,0 +1,22 @@
+
+# Angular
+node_modules/
+dist/
+.angular/
+.editorconfig
+.vscode/
+
+# .NET
+bin/
+obj/
+*.user
+*.pdb
+*.suo
+.vs/
+*.db
+*.db-shm
+*.db-wal
+
+# OS
+.DS_Store
+Thumbs.db

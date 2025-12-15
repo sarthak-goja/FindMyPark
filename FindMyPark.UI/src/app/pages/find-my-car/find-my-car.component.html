@@ -1,0 +1,22 @@
+<div class="page-container">
+    <h2>Find My Car 🚗</h2>
+
+    <div *ngIf="!isLoading && parkedDetails" class="content">
+        <div class="map-container" id="map"></div>
+
+        <div class="details-card">
+            <h3>{{ parkedDetails.listingTitle }}</h3>
+            <p>{{ parkedDetails.address }}</p>
+
+            <div class="status-badge" [class.active]="parkedDetails.isActive">
+                {{ parkedDetails.isActive ? 'Actively Parked' : 'Last Known Location' }}
+            </div>
+
+            <button class="btn-navigate" (click)="navigate()">📍 Navigate to Car</button>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoading && !parkedDetails" class="empty-state">
+        <p>No parking history found.</p>
+    </div>
+</div>

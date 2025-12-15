@@ -1,0 +1,56 @@
+<div class="page-container">
+    <div class="header">
+        <h2>My Vehicles 🚙</h2>
+        <button class="btn-primary" (click)="showForm = !showForm">Add Vehicle</button>
+    </div>
+
+    <div class="add-form" *ngIf="showForm">
+        <h3>Add New Vehicle</h3>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="newVehicle.licensePlate" placeholder="License Plate (e.g. DL 01 AB 1234)">
+        </div>
+        <div class="form-group">
+            <input type="text" [(ngModel)]="newVehicle.model" placeholder="Model (e.g. Swift Dzire)">
+        </div>
+        <div class="form-group">
+            <select [(ngModel)]="newVehicle.type">
+                <option value="4W">Car (4W)</option>
+                <option value="2W">Bike (2W)</option>
+                <option value="EV">Electric (EV)</option>
+            </select>
+        </div>
+        <button class="btn-save" (click)="addVehicle()">Save Vehicle</button>
+    </div>
+
+    <div class="vehicle-list">
+        <div class="vehicle-card" *ngFor="let v of vehicles">
+            <div class="icon">{{ v.type === '2W' ? '🏍️' : '🚗' }}</div>
+            <div class="details">
+                <h3>{{ v.licensePlate }}</h3>
+                <p>{{ v.model }}</p>
+                <div class="meta">
+                    <span class="expiry" [class.danger]="v.insuranceExpiry < '2025-01-01'">
+                        Insurance: {{ v.insuranceExpiry | date:'mediumDate' }}
+                    </span>
+                    <button class="btn-small" (click)="checkChallan(v.licensePlate)">Check Challans</button>
+                </div>
+            </div>
+
+            <div class="badge-challan" *ngIf="v.pendingChallans > 0">
+                ⚠ {{ v.pendingChallans }} Pending
+            </div>
+        </div>
+
+        <p *ngIf="vehicles.length === 0" class="empty">No vehicles added yet.</p>
+    </div>
+
+    <!-- Mock Challan Result Modal -->
+    <div class="modal" *ngIf="challanResult">
+        <div class="modal-content">
+            <h3>Challan Status: {{ challanResult.plate }}</h3>
+            <p><strong>Status:</strong> {{ challanResult.status }}</p>
+            <p><strong>Pending Amount:</strong> ₹{{ challanResult.pendingAmount }}</p>
+            <button class="btn-primary" (click)="challanResult = null">Close</button>
+        </div>
+    </div>
+</div>

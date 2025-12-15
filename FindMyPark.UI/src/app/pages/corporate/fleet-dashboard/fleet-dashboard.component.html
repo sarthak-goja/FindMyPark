@@ -1,0 +1,40 @@
+<div class="page-container">
+    <h2>Corporate Fleet Management</h2>
+
+    <div *ngIf="loading" class="loading">Loading details...</div>
+
+    <div *ngIf="!loading && !dashboardData" class="empty-state">
+        <p>You are not managing any fleet yet.</p>
+        <button class="btn-primary" (click)="registerFleet()">Register New Fleet</button>
+    </div>
+
+    <div *ngIf="dashboardData" class="dashboard-grid">
+        <div class="stat-card">
+            <h3>Total Drivers</h3>
+            <p class="stat-value">{{ dashboardData.totalDrivers }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Active Bookings</h3>
+            <p class="stat-value">{{ dashboardData.activeBookings }}</p>
+        </div>
+        <div class="stat-card">
+            <h3>Total Spend</h3>
+            <p class="stat-value">₹{{ dashboardData.totalSpent | number }}</p>
+        </div>
+    </div>
+
+    <div *ngIf="dashboardData" class="recent-section">
+        <h3>Recent Fleet Activity</h3>
+        <div class="list-group">
+            <div *ngFor="let booking of dashboardData.recentBookings" class="list-item">
+                <div class="list-info">
+                    <h4>{{ booking.listing?.title || 'Parking Spot' }}</h4>
+                    <p>{{ booking.startTime | date:'short' }} - {{ booking.endTime | date:'shortTime' }}</p>
+                </div>
+                <div class="list-status">
+                    <span class="badge confirmed">₹{{ booking.totalPrice }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

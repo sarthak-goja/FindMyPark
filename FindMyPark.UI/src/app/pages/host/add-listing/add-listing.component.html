@@ -1,0 +1,48 @@
+<div class="page-container">
+    <div class="card form-card">
+        <h2>Add New Parking Spot</h2>
+        <p class="text-muted">Fill in the details to list your spot.</p>
+
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label>Spot Title</label>
+                <input type="text" [(ngModel)]="listing.title" name="title" placeholder="e.g. Spacious Driveway in CP"
+                    required />
+            </div>
+
+            <div class="form-group">
+                <label>Location</label>
+                <div class="geo-input-group">
+                    <input type="text" [(ngModel)]="listing.address" name="address" placeholder="Address or GPS Coords"
+                        required readonly />
+                    <button type="button" class="btn-secondary" (click)="getCurrentLocation()" [disabled]="isLocating">
+                        {{ isLocating ? 'Locating...' : '📍 Use GPS' }}
+                    </button>
+                </div>
+                <small class="text-muted">Click 'Use GPS' to capture exact location.</small>
+            </div>
+
+            <div class="form-group">
+                <label>Price per Hour (₹)</label>
+                <input type="number" [(ngModel)]="listing.pricePerHour" name="price" min="10" required />
+            </div>
+
+            <div class="form-group">
+                <label>Amenities</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="listing.isCovered" name="covered" /> 🏠 Covered Roof
+                    </label>
+                    <label>
+                        <input type="checkbox" [(ngModel)]="listing.hasCCTV" name="cctv" /> 📹 CCTV Camera
+                    </label>
+                    <label>
+                        <input type="checkbox" [(ngModel)]="listing.hasEVCharger" name="ev" /> ⚡ EV Charger
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-primary full-width">Publish Listing</button>
+        </form>
+    </div>
+</div>

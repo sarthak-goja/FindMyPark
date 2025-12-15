@@ -1,0 +1,22 @@
+<nav class="navbar">
+    <div class="logo">
+        <span class="logo-icon">🅿️</span>
+        <span class="logo-text">FindMyPark</span>
+    </div>
+
+    <div class="search-bar">
+        <input type="text" placeholder="Search for parking..." />
+    </div>
+
+    <div class="navbar-actions">
+        <button class="btn-lang" (click)="toggleLanguage()">
+            {{ langService.currentLang() === 'en' ? '🇮🇳 HI' : '🇺🇸 EN' }}
+        </button>
+        <app-notifications></app-notifications>
+        <button class="btn-login" routerLink="/login" *ngIf="!currentUser">{{ 'NAV_LOGIN' | translate }}</button>
+        <div *ngIf="currentUser" class="user-profile">
+            <span style="font-weight:bold; margin-right:10px;">{{ currentUser.name }}</span>
+            <button class="btn-login" style="background:#E74C3C;" (click)="logout()">Logout</button>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,97 @@
+/* Inherit common auth styles from global or similar to login */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 100px);
+}
+
+.auth-card {
+    background: var(--color-bg-card);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-form {
+    margin-top: var(--spacing-lg);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-sm);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-main);
+    box-sizing: border-box;
+}
+
+.full-width {
+    width: 100%;
+    margin-top: var(--spacing-md);
+}
+
+.footer-text {
+    margin-top: var(--spacing-lg);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+}
+
+.footer-text a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+/* Role Selector Specifics */
+.role-selector {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.radio-label {
+    flex: 1;
+    position: relative;
+    cursor: pointer;
+}
+
+.radio-label input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-custom {
+    display: block;
+    padding: var(--spacing-sm);
+    text-align: center;
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.radio-label input:checked~.radio-custom {
+    background: rgba(46, 204, 113, 0.1);
+    /* Primary color low opacity */
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+}

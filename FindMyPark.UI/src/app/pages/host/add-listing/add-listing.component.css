@@ -1,0 +1,68 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-lg);
+}
+
+.form-card {
+    width: 100%;
+    max-width: 600px;
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"] {
+    width: 100%;
+    padding: var(--spacing-sm);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-main);
+    box-sizing: border-box;
+}
+
+.geo-input-group {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.btn-secondary {
+    padding: var(--spacing-sm);
+    background: var(--color-bg-dark);
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.checkbox-group {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    background: var(--color-bg-dark);
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+}
+
+.full-width {
+    width: 100%;
+    margin-top: var(--spacing-lg);
+}

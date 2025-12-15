@@ -1,0 +1,83 @@
+.page-container {
+    padding: var(--spacing-lg);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.points-circle {
+    background: var(--color-bg-card);
+    border: 2px solid var(--color-primary);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.3);
+}
+
+.points-circle .count {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-primary);
+}
+
+.points-circle .label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.level-card {
+    background: linear-gradient(135deg, #cd7f32 0%, #a05a2c 100%);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    color: white;
+    margin-bottom: var(--spacing-xl);
+}
+
+.level-card.silver {
+    background: linear-gradient(135deg, #bdc3c7 0%, #2c3e50 100%);
+}
+
+.level-card.gold {
+    background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%);
+    color: black;
+}
+
+.progress-bar {
+    background: rgba(0, 0, 0, 0.2);
+    height: 10px;
+    border-radius: 5px;
+    margin-top: var(--spacing-md);
+    overflow: hidden;
+}
+
+.fill {
+    background: white;
+    height: 100%;
+}
+
+.badges-grid {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.badge {
+    background: var(--color-bg-card);
+    padding: var(--spacing-md);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+}

@@ -1,0 +1,10 @@
+<div *ngIf="currentAd" class="ad-container fade-in">
+    <div class="ad-content">
+        <span class="ad-badge">Sponsored</span>
+        <img [src]="currentAd.imageUrl" alt="{{currentAd.title}}">
+        <div class="ad-overlay">
+            <h3>{{ currentAd.title }}</h3>
+            <a [href]="currentAd.linkUrl" target="_blank" class="btn-ad">View Offer</a>
+        </div>
+    </div>
+</div>

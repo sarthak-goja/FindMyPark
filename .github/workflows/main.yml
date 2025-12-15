@@ -1,0 +1,38 @@
+name: FindMyPark CI/CD
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-dotnet:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Restore dependencies
+      run: dotnet restore ./FindMyPark.API/FindMyPark.API.csproj
+    - name: Build
+      run: dotnet build ./FindMyPark.API/FindMyPark.API.csproj --no-restore
+    - name: Test
+      run: dotnet test ./FindMyPark.API/FindMyPark.API.csproj --no-build --verbosity normal
+
+  build-angular:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    - name: Install Dependencies
+      working-directory: ./FindMyPark.UI
+      run: npm ci
+    - name: Build
+      working-directory: ./FindMyPark.UI
+      run: npm run build -- --configuration=production

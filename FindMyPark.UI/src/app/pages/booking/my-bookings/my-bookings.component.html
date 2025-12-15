@@ -1,0 +1,36 @@
+<div class="page-container">
+    <h2>My Bookings</h2>
+
+    <div class="bookings-list" *ngIf="!isLoading">
+        <div class="card booking-card" *ngFor="let booking of bookings">
+            <div class="booking-header">
+                <h3>{{ booking.listing?.title }}</h3>
+                <span class="status-badge" [class.confirmed]="booking.status === 'Confirmed'">
+                    {{ booking.status }}
+                </span>
+            </div>
+
+            <div class="booking-details">
+                <p><strong>Check-in:</strong> {{ booking.startTime | date:'medium' }}</p>
+                <p><strong>Check-out:</strong> {{ booking.endTime | date:'medium' }}</p>
+                <p class="total-price">Total: ₹{{ booking.totalPrice }}</p>
+
+                <button *ngIf="booking.status === 'Confirmed'" class="btn-rate" (click)="openReview(booking.id)">
+                    ★ Rate
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <app-review-modal *ngIf="showReviewModal && selectedBookingId" [bookingId]="selectedBookingId"
+        (close)="showReviewModal=false">
+    </app-review-modal>
+
+    <div class="loading-state" *ngIf="isLoading">
+        <p>Loading your bookings...</p>
+    </div>
+
+    <div class="empty-state" *ngIf="!isLoading && bookings.length === 0">
+        <p>No bookings found.</p>
+    </div>
+</div>

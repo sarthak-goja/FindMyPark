@@ -1,0 +1,12 @@
+{
+    "title": "Connaught Place Smart Parking",
+    "address": "Connaught Place, New Delhi",
+    "latitude": 28.6139,
+    "longitude": 77.2090,
+    "pricePerHour": 50,
+    "isCovered": true,
+    "hasCCTV": true,
+    "hasEVCharger": true,
+    "isApproved": true,
+    "hostId": 1
+}

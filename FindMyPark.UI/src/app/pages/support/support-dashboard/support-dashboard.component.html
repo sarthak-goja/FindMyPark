@@ -1,0 +1,27 @@
+<div class="page-container">
+    <div class="header-row">
+        <h2>My Support Tickets</h2>
+        <a routerLink="/support/create" class="btn-primary">Create New Ticket</a>
+    </div>
+
+    <div *ngIf="loading" class="loading">Loading tickets...</div>
+
+    <div class="ticket-list" *ngIf="!loading">
+        <div *ngFor="let ticket of tickets" class="ticket-card">
+            <div class="ticket-header">
+                <h3>{{ ticket.subject }}</h3>
+                <span class="status-badge" [ngClass]="ticket.status.toLowerCase()">{{ ticket.status }}</span>
+            </div>
+            <p class="description">{{ ticket.description }}</p>
+            <div class="meta">
+                <span>Created: {{ ticket.createdAt | date:'medium' }}</span>
+                <span *ngIf="ticket.resolvedAt">Resolved: {{ ticket.resolvedAt | date:'medium' }}</span>
+            </div>
+            <div *ngIf="ticket.adminResponse" class="response">
+                <strong>Admin Response:</strong>
+                <p>{{ ticket.adminResponse }}</p>
+            </div>
+        </div>
+        <div *ngIf="tickets.length === 0" class="empty">No tickets found.</div>
+    </div>
+</div>

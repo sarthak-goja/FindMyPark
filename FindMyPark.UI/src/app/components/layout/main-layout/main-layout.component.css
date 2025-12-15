@@ -1,0 +1,44 @@
+.layout-container {
+    display: grid;
+    grid-template-areas:
+        "navbar navbar"
+        "sidebar content";
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 64px 1fr;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.navbar-area {
+    grid-area: navbar;
+    z-index: 10;
+}
+
+.sidebar-area {
+    grid-area: sidebar;
+    background-color: var(--color-bg-card);
+    border-right: 1px solid var(--color-border);
+    overflow-y: auto;
+}
+
+.content-area {
+    grid-area: content;
+    padding: var(--spacing-lg);
+    overflow-y: auto;
+    background-color: var(--color-bg-dark);
+}
+
+@media (max-width: 768px) {
+    .layout-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 64px 1fr;
+        grid-template-areas:
+            "navbar"
+            "content";
+    }
+
+    .sidebar-area {
+        display: none;
+        /* Hide sidebar on mobile for now */
+    }
+}

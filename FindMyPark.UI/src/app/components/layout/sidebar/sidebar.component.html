@@ -1,0 +1,50 @@
+<aside class="sidebar">
+    <ul class="nav-links">
+        <li class="nav-item">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">🏠 {{ 'HOME' |
+                translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/search" routerLinkActive="active">🔍 {{ 'FIND_PARKING' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/bookings" routerLinkActive="active">📅 {{ 'MY_BOOKINGS' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/wallet" routerLinkActive="active">💰 {{ 'WALLET' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/find-my-car" routerLinkActive="active">🚗 {{ 'FIND_CAR' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/rewards" routerLinkActive="active">🏆 {{ 'REWARDS' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/vehicles" routerLinkActive="active">🚙 {{ 'MY_VEHICLES' | translate }}</a>
+        </li>
+        <li class="nav-title">HOSTING</li>
+        <li class="nav-item">
+            <a routerLink="/my-listings" routerLinkActive="active">🅿️ {{ 'MY_SPOTS' | translate }}</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/kyc-upload" routerLinkActive="active">🔐 KYC</a>
+        </li>
+        <li class="nav-item">
+            <a routerLink="/earnings" routerLinkActive="active">📈 {{ 'EARNINGS' | translate }}</a>
+        </li>
+        <li class="nav-title">B2B</li>
+        <li class="nav-item">
+            <a routerLink="/corporate" routerLinkActive="active">🏢 Fleet Mgr</a>
+        </li>
+        <li class="nav-title">HELP</li>
+        <li class="nav-item">
+            <a routerLink="/support/dashboard" routerLinkActive="active">🎫 Support</a>
+        </li>
+    </ul>
+
+    <div class="lang-toggle">
+        <button (click)="langService.toggleLanguage()">
+            {{ langService.currentLang() === 'en' ? '🇮🇳 Hindi' : '🇬🇧 English' }}
+        </button>
+    </div>
+</aside>

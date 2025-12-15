@@ -1,0 +1,86 @@
+<div class="dashboard-container">
+    <h2>Admin Dashboard</h2>
+    <h3>Pending Approvals</h3>
+
+    <div class="table-container" *ngIf="!isLoading && pendingListings.length > 0">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Host</th>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of pendingListings">
+                    <td>{{ item.host?.name || 'Unknown' }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.address }}</td>
+                    <td>Coming Soon...</td> <!-- CreatedAt currently not in DTO/Model exposed -->
+                    <td>
+                        <button class="btn-approve" (click)="approve(item.id)">✅ Approve</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h3>Pending KYC Verification</h3>
+    <div class="table-container" *ngIf="pendingKycUsers.length > 0">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Documents</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of pendingKycUsers">
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <div *ngFor="let doc of user.documents">
+                            <a [href]="doc.filePath" target="_blank">{{ doc.documentType }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn-approve" (click)="verifyKyc(user.id, 'Verified')">✅ Verify</button>
+                        <button class="btn-reject" (click)="verifyKyc(user.id, 'Rejected')">❌ Reject</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p *ngIf="pendingKycUsers.length === 0">No pending KYC requests.</p>
+
+    <div class="empty-state" *ngIf="!isLoading && pendingListings.length === 0">
+        <p>No pending listings to review.</p>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading">
+        <p>Loading...</p>
+    </div>
+
+    <div class="heatmap-section">
+        <h3>📊 Demand Heatmap (Analytics)</h3>
+        <p>Real-time high demand zones sourced from user search data.</p>
+
+        <div class="map-container"
+            style="position: relative; height: 300px; background: #2c3e50; border-radius: 8px; overflow: hidden;">
+            <!-- Placeholder for map implementation -->
+            <div *ngFor="let point of heatmapPoints" class="heat-circle" [style.top.%]="(point.lat - 28.4) * 400"
+                [style.left.%]="(point.lng - 77.0) * 400">
+            </div>
+            <div
+                style="position: absolute; bottom: 10px; right: 10px; color: #fff; background: rgba(0,0,0,0.5); padding: 5px;">
+                Map View (Simulation)
+            </div>
+        </div>
+    </div>
+
+    <app-event-manager></app-event-manager>
+</div>
