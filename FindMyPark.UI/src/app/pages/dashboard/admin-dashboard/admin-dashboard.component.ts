@@ -19,6 +19,7 @@ export class AdminDashboardComponent implements OnInit {
   isLoading = true;
 
   heatmapPoints: any[] = [];
+  users: any[] = [];
 
   constructor(private adminService: AdminService, private kycService: KycService, private http: HttpClient) { }
 
@@ -26,6 +27,26 @@ export class AdminDashboardComponent implements OnInit {
     this.loadPendingListings();
     this.loadPendingKyc();
     this.loadHeatmapData();
+    this.loadUsers();
+  }
+
+  loadUsers() {
+    this.http.get<any[]>('http://localhost:5175/api/Admin/users').subscribe({
+      next: (data) => this.users = data,
+      error: (err) => console.error('Failed to load users', err)
+    });
+  }
+
+  toggleBan(user: any) {
+    if (confirm(`Are you sure you want to ${user.isActive ? 'ban' : 'unban'} ${user.name}?`)) {
+      this.http.post(`http://localhost:5175/api/Admin/users/${user.id}/ban`, {}).subscribe({
+        next: (res: any) => {
+          alert(res.message);
+          this.loadUsers();
+        },
+        error: (err) => alert('Action Failed')
+      });
+    }
   }
 
   loadHeatmapData() {

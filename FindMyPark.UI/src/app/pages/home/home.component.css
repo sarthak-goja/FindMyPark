@@ -1,21 +1,113 @@
-.hero-section {
+.park-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    background: #f8f9fa;
+    padding: 20px;
+}
+
+.zone-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     text-align: center;
-    padding: var(--spacing-xl) 0;
+    width: 100%;
+    max-width: 400px;
 }
 
-.hero-section h1 {
-    font-size: 3rem;
-    margin-bottom: var(--spacing-md);
+.park-icon {
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--primary-color, #007bff);
+    border: 4px solid var(--primary-color, #007bff);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: var(--spacing-lg);
-    margin-top: var(--spacing-xl);
+h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.card h3 {
-    margin-top: 0;
-    color: var(--color-primary);
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.zone-input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.zone-input:focus {
+    border-color: var(--primary-color, #007bff);
+    outline: none;
+}
+
+.start-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    background: #28a745;
+    /* ParkMobile Greenish */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.start-btn:hover {
+    background: #218838;
+}
+
+.error-msg {
+    color: #dc3545;
+    margin-top: 15px;
+}
+
+.divider {
+    margin: 20px 0;
+    color: #999;
+    font-size: 0.9rem;
+}
+
+.map-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.active-session-card {
+    margin-top: 30px;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    padding: 20px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.timer {
+    font-size: 2.5rem;
+    font-family: monospace;
+    font-weight: 700;
+    color: #856404;
+    margin: 10px 0;
 }

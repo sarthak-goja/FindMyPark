@@ -86,8 +86,9 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-primary full-width" [disabled]="totalPrice <= 0">
-                Pay & Reserve
+            <button type="submit" class="btn-primary full-width" [disabled]="totalPrice <= 0 || isProcessing">
+                <span *ngIf="!isProcessing">Pay & Reserve</span>
+                <span *ngIf="isProcessing">Processing...</span>
             </button>
         </form>
     </div>

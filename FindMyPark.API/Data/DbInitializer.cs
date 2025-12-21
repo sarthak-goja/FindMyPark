@@ -24,7 +24,6 @@ namespace FindMyPark.API.Data
             };
 
             context.Users.AddRange(users);
-            context.Users.AddRange(users);
             context.SaveChanges();
 
             // Seed Wallets
@@ -45,6 +44,7 @@ namespace FindMyPark.API.Data
                     Title = "Connaught Place Premium",
                     Address = "Block A, Connaught Place, New Delhi",
                     HostId = users[0].Id,
+                    ZoneCode = "1001",
                     PricePerHour = 100,
                     Latitude = 28.6328, 
                     Longitude = 77.2197,
@@ -60,6 +60,7 @@ namespace FindMyPark.API.Data
                     Title = "DLF CyberHub Parking",
                     Address = "DLF Cyber City, Gurugram",
                     HostId = users[1].Id,
+                    ZoneCode = "2002",
                     PricePerHour = 80,
                     Latitude = 28.4950,
                     Longitude = 77.0895,
@@ -75,6 +76,7 @@ namespace FindMyPark.API.Data
                     Title = "Select Citywalk Basement",
                     Address = "Saket District Centre, New Delhi",
                     HostId = users[0].Id,
+                    ZoneCode = "3003",
                     PricePerHour = 60,
                     Latitude = 28.5285,
                     Longitude = 77.2193,

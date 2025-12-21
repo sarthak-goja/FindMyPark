@@ -57,6 +57,38 @@
     </div>
     <p *ngIf="pendingKycUsers.length === 0">No pending KYC requests.</p>
 
+    <h3>User Management</h3>
+    <div class="table-container" *ngIf="users.length > 0">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users">
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <span [style.color]="user.isActive ? 'green' : 'red'">
+                            {{ user.isActive ? 'Active' : 'Banned' }}
+                        </span>
+                    </td>
+                    <td>
+                        <button [class]="user.isActive ? 'btn-reject' : 'btn-approve'" (click)="toggleBan(user)">
+                            {{ user.isActive ? '🚫 Ban' : '✅ Unban' }}
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
     <div class="empty-state" *ngIf="!isLoading && pendingListings.length === 0">
         <p>No pending listings to review.</p>
     </div>

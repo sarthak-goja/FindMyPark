@@ -21,4 +21,8 @@ export class ListingService {
   getAllListings(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
+
+  getListingByZone(zoneCode: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/zone/${zoneCode}`);
+  }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { WalletService } from '../../services/wallet.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-wallet',
@@ -15,14 +16,21 @@ export class WalletComponent implements OnInit {
   isLoading = true;
   amountToAdd: number = 500;
 
-  constructor(private walletService: WalletService) { }
+  constructor(
+    private walletService: WalletService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    this.loadWallet();
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.loadWallet(user.id);
+      }
+    });
   }
 
-  loadWallet() {
-    this.walletService.getWallet(1).subscribe({ // Hardcoded User ID 1
+  loadWallet(userId: number) {
+    this.walletService.getWallet(userId).subscribe({
       next: (data) => {
         this.wallet = data;
         this.isLoading = false;
@@ -35,12 +43,16 @@ export class WalletComponent implements OnInit {
   }
 
   addMoney() {
-    this.walletService.addFunds(1, this.amountToAdd).subscribe({
-      next: () => {
-        alert('Funds added successfully!');
-        this.loadWallet();
-      },
-      error: (err) => alert('Failed to add funds')
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.walletService.addFunds(user.id, this.amountToAdd).subscribe({
+          next: () => {
+            alert('Funds added successfully!');
+            this.loadWallet(user.id);
+          },
+          error: (err) => alert('Failed to add funds')
+        });
+      }
     });
   }
 }

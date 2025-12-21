@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListingService } from '../../../services/listing.service';
+import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -28,7 +29,14 @@ export class AddListingComponent {
 
   isLocating = false;
 
-  constructor(private listingService: ListingService, private router: Router) {
+  constructor(
+    private listingService: ListingService,
+    private router: Router,
+    private authService: AuthService
+  ) {
+    this.authService.currentUser$.subscribe(user => {
+      if (user) this.listing.hostId = user.id;
+    });
     this.captureDeviceLocation();
   }
 

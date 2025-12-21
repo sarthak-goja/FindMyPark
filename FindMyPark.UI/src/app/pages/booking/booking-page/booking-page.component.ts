@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { AiService } from '../../../services/ai.service';
 import { ServicesService } from '../../../services/services.service';
 import { EvService } from '../../../services/ev.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-booking-page',
@@ -31,7 +32,8 @@ export class BookingPageComponent implements OnInit {
     private bookingService: BookingService,
     private aiService: AiService,
     private servicesService: ServicesService,
-    private evService: EvService
+    private evService: EvService,
+    private authService: AuthService
   ) { }
 
   forecast: any[] = [];
@@ -124,29 +126,37 @@ export class BookingPageComponent implements OnInit {
   }
   confirmBooking() {
     this.isProcessing = true;
-    const bookingData = {
-      listingId: this.listingId,
-      driverId: 3, // Hardcoded driver (ID 3 from Seed)
-      startTime: this.startTime,
-      endTime: this.endTime
-    };
-
-    this.bookingService.createBooking(bookingData).subscribe({
-      next: (response) => {
-        alert('Booking Confirmed!');
-        this.router.navigate(['/bookings']);
-      },
-      error: (err) => {
-        this.isProcessing = false;
-        console.error(err);
-        if (err.status === 400 && err.error?.includes('Insufficient funds')) {
-          if (confirm('Insufficient funds in wallet. Go to Wallet to add money?')) {
-            this.router.navigate(['/wallet']);
-          }
-        } else {
-          alert('Booking Failed: ' + (err.error || 'Unknown Error'));
-        }
+    this.authService.currentUser$.subscribe(user => {
+      if (!user) {
+        alert('Please login to book a spot.');
+        this.router.navigate(['/login']);
+        return;
       }
+
+      const bookingData = {
+        listingId: this.listingId,
+        driverId: user.id,
+        startTime: this.startTime,
+        endTime: this.endTime
+      };
+
+      this.bookingService.createBooking(bookingData).subscribe({
+        next: (response) => {
+          alert('Booking Confirmed!');
+          this.router.navigate(['/bookings']);
+        },
+        error: (err) => {
+          this.isProcessing = false;
+          console.error(err);
+          if (err.status === 400 && err.error?.includes('Insufficient funds')) {
+            if (confirm('Insufficient funds in wallet. Go to Wallet to add money?')) {
+              this.router.navigate(['/wallet']);
+            }
+          } else {
+            alert('Booking Failed: ' + (err.error || 'Unknown Error'));
+          }
+        }
+      });
     });
   }
 }

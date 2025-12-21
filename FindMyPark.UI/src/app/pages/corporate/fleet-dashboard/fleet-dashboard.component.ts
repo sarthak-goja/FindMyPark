@@ -21,31 +21,29 @@ export class FleetDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.loadDashboard();
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.loadDashboard();
+      }
+    });
   }
 
   loadDashboard() {
-    const userId = 1; // Hardcoded for demo, normally from AuthService
-    this.authService.getUser(userId).subscribe({
-      next: (u) => {
-        this.user = u;
-        if (this.user.fleetId) {
-          this.corporateService.getDashboard(this.user.fleetId).subscribe({
-            next: (data) => {
-              this.dashboardData = data;
-              this.loading = false;
-            },
-            error: (err) => {
-              console.error(err);
-              this.loading = false;
-            }
-          });
-        } else {
-          // User not in fleet, maybe show register screen?
+    if (this.user && this.user.fleetId) {
+      this.corporateService.getDashboard(this.user.fleetId).subscribe({
+        next: (data) => {
+          this.dashboardData = data;
+          this.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
           this.loading = false;
         }
-      }
-    });
+      });
+    } else {
+      this.loading = false;
+    }
   }
 
   registerFleet() {

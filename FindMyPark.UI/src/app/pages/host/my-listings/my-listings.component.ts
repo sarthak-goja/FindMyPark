@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ListingService } from '../../../services/listing.service';
+import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -14,18 +15,24 @@ export class MyListingsComponent implements OnInit {
   listings: any[] = [];
   isLoading = true;
 
-  constructor(private listingService: ListingService) { }
+  constructor(
+    private listingService: ListingService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    // Hardcoded Host ID 1 for now
-    this.listingService.getMyListings(1).subscribe({
-      next: (data) => {
-        this.listings = data;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        console.error(err);
-        this.isLoading = false;
+    this.authService.currentUser$.subscribe(user => {
+      if (user) {
+        this.listingService.getMyListings(user.id).subscribe({
+          next: (data) => {
+            this.listings = data;
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error(err);
+            this.isLoading = false;
+          }
+        });
       }
     });
   }

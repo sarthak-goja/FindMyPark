@@ -28,6 +28,20 @@ namespace FindMyPark.API.Controllers
             return await _context.Listings.Where(l => l.HostId == hostId).ToListAsync();
         }
 
+        [HttpGet("zone/{zoneCode}")]
+        public async Task<ActionResult<Listing>> GetListingByZone(string zoneCode)
+        {
+            var listing = await _context.Listings.Include(l => l.Host)
+                                                 .FirstOrDefaultAsync(l => l.ZoneCode == zoneCode);
+
+            if (listing == null)
+            {
+                return NotFound(new { message = "Invalid Zone Code" });
+            }
+
+            return listing;
+        }
+
         [HttpPost]
         public async Task<ActionResult<Listing>> PostListing(CreateListingDto dto)
         {

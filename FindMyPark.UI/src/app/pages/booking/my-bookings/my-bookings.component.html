@@ -18,6 +18,14 @@
                 <button *ngIf="booking.status === 'Confirmed'" class="btn-rate" (click)="openReview(booking.id)">
                     ★ Rate
                 </button>
+                <button *ngIf="booking.status === 'Confirmed'" class="btn-cancel" (click)="cancelBooking(booking.id)"
+                    style="margin-left: 10px; background-color: #dc3545;">
+                    Cancel
+                </button>
+                <button *ngIf="booking.status === 'Confirmed'" class="btn-extend" (click)="extendBooking(booking)"
+                    style="margin-left: 10px; background-color: #ffc107; color: #000;">
+                    + Extend
+                </button>
             </div>
         </div>
     </div>

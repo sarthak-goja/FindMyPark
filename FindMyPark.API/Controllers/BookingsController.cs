@@ -139,6 +139,85 @@ namespace FindMyPark.API.Controllers
                 IsActive = booking.EndTime > DateTime.UtcNow
             });
         }
+        [HttpPost("{id}/cancel")]
+        public async Task<IActionResult> CancelBooking(int id)
+        {
+            var booking = await _context.Bookings.Include(b => b.Listing).FirstOrDefaultAsync(b => b.Id == id);
+            if (booking == null) return NotFound();
+
+            if (booking.Status == "Cancelled") return BadRequest("Booking already cancelled.");
+            
+            // Refund Logic
+            var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == booking.DriverId);
+            if (wallet != null)
+            {
+                wallet.Balance += booking.TotalPrice;
+                var transaction = new Transaction
+                {
+                    WalletId = wallet.Id,
+                    Amount = booking.TotalPrice,
+                    Type = "Credit",
+                    Description = $"Refund for {booking.Listing.Title}"
+                };
+                _context.Wallets.Update(wallet);
+                _context.Transactions.Add(transaction);
+            }
+
+            booking.Status = "Cancelled";
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Booking cancelled and refunded." });
+        }
+
+        [HttpPost("{id}/extend")]
+        public async Task<IActionResult> ExtendBooking(int id, [FromBody] ExtendBookingDto dto)
+        {
+            var booking = await _context.Bookings.Include(b => b.Listing).FirstOrDefaultAsync(b => b.Id == id);
+            if (booking == null) return NotFound("Booking not found");
+
+            if (booking.Status != "Confirmed") return BadRequest("Can only extend confirmed bookings.");
+            if (dto.NewEndTime <= booking.EndTime) return BadRequest("New end time must be after current end time.");
+
+            // Calculate New Total Price for the entire duration
+            var newTotalPrice = await _pricingService.CalculatePriceAsync(booking.Listing.PricePerHour, booking.ListingId, booking.StartTime, dto.NewEndTime);
+            var additionalCost = newTotalPrice - booking.TotalPrice;
+
+            if (additionalCost < 0) return BadRequest("Error in price calculation.");
+
+            if (additionalCost > 0)
+            {
+                var wallet = await _context.Wallets.FirstOrDefaultAsync(w => w.UserId == booking.DriverId);
+                if (wallet == null || wallet.Balance < additionalCost)
+                {
+                    return BadRequest($"Insufficient funds. You need ₹{additionalCost} more.");
+                }
+
+                // Deduct
+                wallet.Balance -= additionalCost;
+                var transaction = new Transaction
+                {
+                    WalletId = wallet.Id,
+                    Amount = additionalCost,
+                    Type = "Debit",
+                    Description = $"Extension for {booking.Listing.Title}"
+                };
+                _context.Wallets.Update(wallet);
+                _context.Transactions.Add(transaction);
+            }
+
+            // Update Booking
+            booking.EndTime = dto.NewEndTime;
+            booking.TotalPrice = newTotalPrice;
+            
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Booking extended successfully.", newEndTime = booking.EndTime, additionalCost });
+        }
+    }
+
+    public class ExtendBookingDto
+    {
+        public DateTime NewEndTime { get; set; }
     }
 
     public class CreateBookingDto

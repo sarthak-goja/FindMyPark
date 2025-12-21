@@ -29,4 +29,12 @@ export class BookingService {
   getEstimatedPrice(listingId: number, start: string, end: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/calculate-price?listingId=${listingId}&start=${start}&end=${end}`);
   }
+
+  cancelBooking(bookingId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${bookingId}/cancel`, {});
+  }
+
+  extendBooking(bookingId: number, newEndTime: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/${bookingId}/extend`, { newEndTime });
+  }
 }

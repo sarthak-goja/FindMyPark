@@ -28,6 +28,7 @@ namespace FindMyPark.API.Models
         public UserRole Role { get; set; }
 
         public bool IsKycVerified { get; set; } = false;
+        public bool IsActive { get; set; } = true;
 
         public int Points { get; set; } = 0; // Gamification Points
         public string KycStatus { get; set; } = "Pending"; // Pending, Verified, Rejected

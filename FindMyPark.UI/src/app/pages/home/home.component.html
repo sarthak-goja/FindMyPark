@@ -1,23 +1,32 @@
-<div class="hero-section">
-    <h1>Park with Ease, <span class="text-accent">Every Time.</span></h1>
-    <p class="text-muted">Find secure parking spots in real-time. Join thousands of happy drivers.</p>
+<div class="park-mobile-wrapper">
+    <div class="zone-card">
+        <div class="logo-area">
+            <span class="park-icon">P</span>
+        </div>
+        <h1>Park. Pay. Go.</h1>
+        <p class="subtitle">Enter the Zone Number from the street sign</p>
 
-    <div class="cta-group">
-        <button class="btn-primary">Find Parking Now</button>
-    </div>
-</div>
+        <div class="input-group">
+            <input type="text" [(ngModel)]="zoneCode" placeholder="e.g. 1001" class="zone-input"
+                (keyup.enter)="startParking()">
 
-<div class="features-grid">
-    <div class="card">
-        <h3>📍 Real-time Map</h3>
-        <p class="text-muted">See available spots near you instantly.</p>
+            <button class="btn-primary start-btn" (click)="startParking()">
+                Start Parking
+            </button>
+        </div>
+
+        <p class="error-msg" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+        <div class="divider">OR</div>
+
+        <a routerLink="/search" class="map-link">Find Parking on Map</a>
     </div>
-    <div class="card">
-        <h3>⚡ Fast Booking</h3>
-        <p class="text-muted">Reserve in seconds with UPI or Wallet.</p>
-    </div>
-    <div class="card">
-        <h3>🛡️ Secure</h3>
-        <p class="text-muted">Verified hosts and safe locations.</p>
+
+    <!-- Active Session Placeholder -->
+    <div class="active-session-card" *ngIf="activeSession">
+        <h3>Active Parking</h3>
+        <div class="timer">{{ timerString }}</div>
+        <p>Expires at 4:30 PM</p>
+        <button class="btn-secondary">Extend</button>
     </div>
 </div>

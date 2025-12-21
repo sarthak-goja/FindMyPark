@@ -12,6 +12,11 @@ namespace FindMyPark.API.Models
         [Required]
         public string Title { get; set; } = string.Empty;
 
+        [Required]
+        public string ZoneCode { get; set; } = string.Empty; // e.g. "1001"
+
+        public int MaxDurationHours { get; set; } = 24;
+
         public bool IsOccupied { get; set; }
         public DateTime? LastSensorUpdate { get; set; }
 
