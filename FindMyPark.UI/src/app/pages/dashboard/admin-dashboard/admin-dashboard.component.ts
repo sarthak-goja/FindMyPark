@@ -31,7 +31,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   loadUsers() {
-    this.http.get<any[]>('http://localhost:5175/api/Admin/users').subscribe({
+    this.http.get<any[]>('http://10.0.2.2:5175/api/Admin/users').subscribe({
       next: (data) => this.users = data,
       error: (err) => console.error('Failed to load users', err)
     });
@@ -39,7 +39,7 @@ export class AdminDashboardComponent implements OnInit {
 
   toggleBan(user: any) {
     if (confirm(`Are you sure you want to ${user.isActive ? 'ban' : 'unban'} ${user.name}?`)) {
-      this.http.post(`http://localhost:5175/api/Admin/users/${user.id}/ban`, {}).subscribe({
+      this.http.post(`http://10.0.2.2:5175/api/Admin/users/${user.id}/ban`, {}).subscribe({
         next: (res: any) => {
           alert(res.message);
           this.loadUsers();

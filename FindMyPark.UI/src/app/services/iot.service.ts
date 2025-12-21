@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class IotService {
-  private apiUrl = 'http://localhost:5175/api/IoT';
+  private apiUrl = 'http://10.0.2.2:5175/api/IoT';
 
   constructor(private http: HttpClient) { }
 

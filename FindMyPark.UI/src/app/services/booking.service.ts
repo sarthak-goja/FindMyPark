@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BookingService {
-  private apiUrl = 'http://localhost:5175/api/Bookings';
+  private apiUrl = 'http://10.0.2.2:5175/api/Bookings';
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class BookingService {
   }
 
   validatePromo(code: string): Observable<any> {
-    return this.http.get<any>(`http://localhost:5175/api/Promotions/validate/${code}`);
+    return this.http.get<any>(`http://10.0.2.2:5175/api/Promotions/validate/${code}`);
   }
 
   getEstimatedPrice(listingId: number, start: string, end: string): Observable<any> {

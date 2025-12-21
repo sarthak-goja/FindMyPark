@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EvService {
-  private apiUrl = 'http://localhost:5175/api/EV/chargers';
+  private apiUrl = 'http://10.0.2.2:5175/api/EV/chargers';
 
   constructor(private http: HttpClient) { }
 

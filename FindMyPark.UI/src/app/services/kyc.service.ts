@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class KycService {
-  private apiUrl = 'http://localhost:5175/api/Kyc';
+  private apiUrl = 'http://10.0.2.2:5175/api/Kyc';
 
   constructor(private http: HttpClient) { }
 

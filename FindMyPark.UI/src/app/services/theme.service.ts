@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ThemeService {
-  private apiUrl = 'http://localhost:5175/api/Tenant/config';
+  private apiUrl = 'http://10.0.2.2:5175/api/Tenant/config';
 
   constructor(private http: HttpClient) { }
 
